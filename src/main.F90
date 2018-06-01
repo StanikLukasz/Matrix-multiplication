@@ -1,5 +1,3 @@
-#define TOFILE 0
-    
 program main
     use matrixMath
     implicit none
@@ -27,14 +25,24 @@ program main
     end do
     
     ! getting computing time
+
+#if !defined(DEFAULT_MAT_MUL)
     call CPU_TIME(before)
     call mult(A, B, X, status)
     call CPU_TIME(after)
+#else
+    call CPU_TIME(before)
+    X = MATMUL(A,B)
+    call CPU_TIME(after)
+#endif
+    
     
     ! output
-#if TOFILE == 0    
+#if !defined(TOFILE) 
     write(*,*) status
-#endif
     write(*,*) after-before
+#else
+    write(*,*) after-before, N
+#endif
     
 end program main

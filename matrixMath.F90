@@ -30,7 +30,7 @@ contains
         
         dim_condition = (Ac .EQ. Br) .AND. (Ar .EQ. Xr) .AND. (Bc .EQ. Xc)
         
-        ! returning with status = -1 if dim_condition is not true
+        ! returning with status = -1 if condition is not true
         if (.NOT. dim_condition) then
             status = -1
             return
@@ -40,14 +40,14 @@ contains
 #if CACHE_OPT == 0        
         do i = 1, Xr
             do j = 1, Xc
-#if DOT_USE == 0               
+                #if DOT_USE == 0               
                     X(i,j) = 0.d0
                     do k = 1, Ac
                         X(i,j) = X(i,j) + A(i,k) * B(k,j)
                     end do
-#else
+                #else
                     X(i,j) = dot_product(A(i,:),B(:,j))
-#endif                
+                #endif                
             end do
         end do
 #else
@@ -58,14 +58,14 @@ contains
                 
                 do i = ii, min(ii + ichunk - 1, Xr)
                     do j = jj, min(jj + ichunk - 1, Xc)
-#if DOT_USE == 0               
+                        #if DOT_USE == 0               
                             X(i,j) = 0.d0
                             do k = 1, Ac
                                 X(i,j) = X(i,j) + A(i,k) * B(k,j)
                             end do
-#else
+                        #else
                             X(i,j) = dot_product(A(i,:),B(:,j))
-#endif                
+                        #endif                
                     end do
                 end do
 #endif
