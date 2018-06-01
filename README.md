@@ -35,4 +35,4 @@ Ponizej przedstawiam wykresy zaleznosci czasu obliczen od rozmiaru mnozonych mac
 ##### wykres czasu od uzytej opcji kompilacji
 ![chart](https://github.com/StanikLukasz/Matrix-multiplication/blob/master/times/chart.PNG)
 
-Jak widac czasu niezbyt sie roznia w zaleznosci od opcji kompilacji. Co ciekawe, im lepsza nasza "optymalizacja" tym czas opliczen jest dluzszy. :)
+Jak widac czasu niezbyt sie roznia w zaleznosci od opcji kompilacji. Co ciekawe, im lepsza nasza "optymalizacja" tym czas obliczen jest dluzszy. :)
