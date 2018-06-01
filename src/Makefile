@@ -9,6 +9,8 @@ main_O2:
 	ifort $(FFLAGS) -D "CACHE_OPT=1" $(FILES) -o "main_O2" -O2
 main_O3:
 	ifort $(FFLAGS) -D "DOT_USE=1" -D "CACHE_OPT=1" $(FILES) -o "main_O3" -O2
+main_O0:
+	ifort $(FFLAGS) main.F90 -o "main_matmul" -O2
 
 times_O0:
 	ifort $(FFLAGS) -D "TOFILE" $(FILES) -o "main_tofile_O0" -O2
