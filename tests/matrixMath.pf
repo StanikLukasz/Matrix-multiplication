@@ -1,0 +1,155 @@
+@test
+subroutine testMul_1x1()
+  use matrixMath
+  use pfunit_mod
+  implicit none
+
+  real (kind=8) :: A(1,1), B(1,1), X(1,1), expected(1,1)
+  integer (kind=4) :: status
+
+  A(1,1) = 2.d0
+  B(1,1) = 5.d0
+  expected(1,1) = 10.d0
+
+  call mult( A, B, X, status )
+  @assertEqual( 0, status )
+  @assertEqual( expected, X )
+
+end subroutine testMul_1x1
+
+@test
+subroutine testMul_horizontal_vector()
+  use matrixMath
+  use pfunit_mod
+  implicit none
+
+  real (kind=8) :: A(100,1), B(1,100), X(100,100)
+  real (kind=8) :: expected(100,100)
+  integer (kind=4) :: status, i, j
+
+  do i = 1,100
+    A(i,1) = i 
+  end do
+  do i = 1,100
+    B(1,i) = 2*i
+  end do
+  do i = 1,100
+    do j = 1,100
+      expected(i,j) = 2*i*j
+    end do
+  end do
+
+  call mult( A, B, X, status )
+  @assertEqual( 0, status )
+  @assertEqual( expected, X )
+
+end subroutine testMul_horizontal_vector
+
+@test
+subroutine testMul_vertical_vector()
+  use matrixMath
+  use pfunit_mod
+  implicit none
+
+  real (kind=8) :: A(1,100), B(100,1), X(1,1)
+  real (kind=8) :: expected(1,1)
+  integer (kind=4) :: status, i
+
+  do i = 1,100
+    A(i,1) = i 
+  end do
+  do i = 1,100
+    B(1,i) = 2*i
+  end do
+  expected(1,1) = 0.d0
+  do i = 1,100
+      expected(1,1) = expected(1,1) + 2*(i**2)
+  end do
+
+  call mult( A, B, X, status )
+  @assertEqual( 0, status )
+  @assertEqual( expected, X )
+
+end subroutine testMul_vertical_vector
+
+@test
+subroutine testMul_big()
+  use matrixMath
+  use pfunit_mod
+  implicit none
+
+  real (kind=8) :: A(1000,1000), B(1000,1000)
+  real (kind=8) :: expected(1000,1000), X(1000,1000)
+  integer (kind=4) :: status, i, j
+
+  A = 1.d0
+  B = 1.d0
+  expected = 1000.d0
+
+  call mult( A, B, X, status )
+  @assertEqual( 0, status )
+  @assertEqual( expected, X )
+
+end subroutine testMul_big
+
+@test
+subroutine testMul_wrongDimensions1()
+  use matrixMath
+  use pfunit_mod
+  implicit none
+
+  real (kind=8) :: A(4,7), B(4,5), X(4,5)
+  integer (kind=4) :: status
+
+  call mult( A, B, X, status )
+  @assertEqual( -1, status )
+
+end subroutine testMul_wrongDimensions1
+
+@test
+subroutine testMul_wrongDimensions2()
+  use matrixMath
+  use pfunit_mod
+  implicit none
+
+  real (kind=8) :: A(4,7), B(7,5), X(4,8)
+  integer (kind=4) :: status
+
+  call mult( A, B, X, status )
+  @assertEqual( -1, status )
+
+end subroutine testMul_wrongDimensions2
+
+@test
+subroutine testMul_wrongDimensions3()
+  use matrixMath
+  use pfunit_mod
+  implicit none
+
+  real (kind=8) :: A(4,7), B(7,5), X(8,5)
+  integer (kind=4) :: status
+
+  call mult( A, B, X, status )
+  @assertEqual( -1, status )
+
+end subroutine testMul_wrongDimensions3
+
+@test
+subroutine testMul_normal()
+  use matrixMath
+  use pfunit_mod
+  implicit none
+
+  real (kind=8) :: A(30,20), B(20,40)
+  real (kind=8) :: expected(30,40), X(30,40)
+  integer (kind=4) :: status, i, j
+
+  A = 2.d0
+  B = 5.d0
+  expected = 200.d0
+
+  call mult( A, B, X, status )
+  @assertEqual( 0, status )
+  @assertEqual( expected, X )
+
+end subroutine testMul_normal
