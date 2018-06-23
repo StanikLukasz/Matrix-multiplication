@@ -35,4 +35,6 @@ Ponizej przedstawiam wykresy zaleznosci czasu obliczen od rozmiaru mnozonych mac
 ##### wykres czasu od uzytej opcji kompilacji
 ![chart](https://github.com/StanikLukasz/Matrix-multiplication/blob/master/times/chart.PNG)
 
+Podczas wywolywania funkcji matmul przy rozmiarach macierzy wiekszych niz 324x324 dochodzilo do przepelnienia stosu...
+
 Jak widac czasu niezbyt sie roznia w zaleznosci od opcji kompilacji. Co ciekawe, im lepsza nasza "optymalizacja" tym czas obliczen jest dluzszy. :)
